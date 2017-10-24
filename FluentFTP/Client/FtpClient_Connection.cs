@@ -1442,7 +1442,9 @@ namespace FluentFTP {
 					m_caps |= FtpCapability.XSHA256;
 				else if (feat.ToUpper().Trim().StartsWith("XSHA512"))
 					m_caps |= FtpCapability.XSHA512;
-				else if (feat.ToUpper().Trim().StartsWith("HASH")) {
+				else if (feat.ToUpper().Trim().StartsWith("MODE Z"))
+				    m_caps |= FtpCapability.MODEZ;
+                else if (feat.ToUpper().Trim().StartsWith("HASH")) {
 					Match m;
 
 					m_caps |= FtpCapability.HASH;
