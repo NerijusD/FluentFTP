@@ -7,13 +7,19 @@ namespace FluentFTP.Helpers
     {
         public static byte[] Decompress(byte[] data)
         {
-            using (var input = new MemoryStream(data))
+	        byte[] buffer = new byte[4 * 1024]; // 4k is traditional choice
+
+			using (var input = new MemoryStream(data))
             {
                 using (var output = new MemoryStream())
                 {
-                    using (var deflateStream = new DeflateStream(input, CompressionMode.Decompress))
-                    {
-                        deflateStream.CopyTo(output);
+					using (var deflateStream = new DeflateStream(input, CompressionMode.Decompress))
+					{
+						int read;
+						while ((read = deflateStream.Read(buffer, 0, buffer.Length)) > 0)
+						{
+							output.Write(buffer, 0, read);
+						}
                     }
                     return output.ToArray();
                 }
@@ -22,13 +28,19 @@ namespace FluentFTP.Helpers
 
         public static byte[] Compress(byte[] data)
         {
-            using (var input = new MemoryStream(data))
+	        byte[] buffer = new byte[4 * 1024]; // 4k is traditional choice
+
+			using (var input = new MemoryStream(data))
             {
                 using (var output = new MemoryStream())
                 {
                     using (var deflateStream = new DeflateStream(input, CompressionMode.Compress))
                     {
-                        deflateStream.CopyTo(output);
+	                    int read;
+	                    while ((read = deflateStream.Read(buffer, 0, buffer.Length)) > 0)
+	                    {
+		                    output.Write(buffer, 0, read);
+	                    }
                     }
                     return output.ToArray();
                 }
