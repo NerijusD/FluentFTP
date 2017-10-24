@@ -133,13 +133,17 @@ namespace FluentFTP {
 		/// <summary>
 		/// Support for the non-standard XSHA512 command
 		/// </summary>
-		XSHA512 = 65536
-	}
+		XSHA512 = 65536,
+        /// <summary>
+        /// Support for the non-standard MODE Z command
+        /// </summary>
+	    MODEZ = 131072
+    }
 
-	/// <summary>
-	/// Different types of hashing algorithms for computing checksums.
-	/// </summary>
-	[Flags]
+    /// <summary>
+    /// Different types of hashing algorithms for computing checksums.
+    /// </summary>
+    [Flags]
 	public enum FtpHashAlgorithm : int {
 		/// <summary>
 		/// HASH command is not supported
